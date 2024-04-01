@@ -90,6 +90,9 @@ module top_gray_sobel(
                 BYPASS: begin
                     out_px_rgb <= in_pixel_i;
                 end
+                default: begin
+                    out_px_rgb <= 'b0;
+                end
             endcase
         end
     end
@@ -100,7 +103,7 @@ module top_gray_sobel(
     assign in_px_rgb = (select_i == 'b0 || select_i == 'b10 || select_i == 'b11)?  in_pixel_i : 'b0;
     assign in_px_gray = (select_i == 'b01)?  in_pixel_i[PIXEL_WIDTH_OUT-1:0] : (select_i == 'b10)?  out_px_gray : 'b0;
 
-    assign out_pixel_o = (select_i == 'b01 || select_i == 'b10)?  out_px_sobel : (select_i == 'b0)? out_px_gray : out_px_rgb;
+    assign out_pixel_o = (select_i == 'b01 || select_i == 'b10)?  {7'b0, out_px_sobel} : (select_i == 'b0)?  {7'b0, out_px_gray} : out_px_rgb;
     assign px_ready_sobel_o = (select_i == 'b01 || select_i == 'b10)?  px_ready_sobel : 'b0;
 
 endmodule

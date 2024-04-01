@@ -13,19 +13,19 @@ logic [MAX_GRADIENT_SUM_WIDTH:0] sum_xy_grad;
 
 
 //Equivalent to convolve 3x3 pixel matrix with sobel 3x3 X kernel
-assign x_grad = ((matrix_pixels_i.vector0.pix2 - matrix_pixels_i.vector0.pix0) + 
-                ((matrix_pixels_i.vector1.pix2 - matrix_pixels_i.vector1.pix0) << 1) + 
-                (matrix_pixels_i.vector2.pix2 - matrix_pixels_i.vector2.pix0));
+assign x_grad = (({3'b0, matrix_pixels_i.vector0.pix2} - {3'b0, matrix_pixels_i.vector0.pix0}) + 
+                (({3'b0, matrix_pixels_i.vector1.pix2} - {3'b0, matrix_pixels_i.vector1.pix0}) << 1) + 
+                ({3'b0, matrix_pixels_i.vector2.pix2} - {3'b0, matrix_pixels_i.vector2.pix0}));
 //Equivalent to convolve 3x3 pixel matrix with sobel 3x3 Y kernel    
-assign y_grad = ((matrix_pixels_i.vector2.pix0 - matrix_pixels_i.vector0.pix0) + 
-                ((matrix_pixels_i.vector2.pix1 - matrix_pixels_i.vector0.pix1) << 1) + 
-                (matrix_pixels_i.vector2.pix2 - matrix_pixels_i.vector0.pix2));  
+assign y_grad = (({3'b0, matrix_pixels_i.vector2.pix0} - {3'b0, matrix_pixels_i.vector0.pix0}) + 
+                (({3'b0, matrix_pixels_i.vector2.pix1} - {3'b0, matrix_pixels_i.vector0.pix1}) << 1) + 
+                ({3'b0, matrix_pixels_i.vector2.pix2} - {3'b0, matrix_pixels_i.vector0.pix2}));  
 
 //Equivalent aprox to calculate magnitud of x,y gradient
 assign abs_x_grad = (x_grad[MAX_GRADIENT_WIDTH]? ~x_grad+1 : x_grad);  //Absolute value    
 assign abs_y_grad = (y_grad[MAX_GRADIENT_WIDTH]? ~y_grad+1 : y_grad);          
 assign sum_xy_grad = (abs_x_grad + abs_y_grad);    
 
-assign out_sobel_core_o = (|sum_xy_grad[MAX_GRADIENT_WIDTH:PIXEL_WIDTH_OUT])? MAX_PIXEL_VAL-1 : sum_xy_grad[PIXEL_WIDTH_OUT-1:0];  //Overflow
+assign out_sobel_core_o = (|sum_xy_grad[MAX_GRADIENT_SUM_WIDTH:PIXEL_WIDTH_OUT])? MAX_PIXEL_VAL-1 : sum_xy_grad[PIXEL_WIDTH_OUT-1:0];  //Overflow
 
 endmodule

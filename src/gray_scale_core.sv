@@ -13,7 +13,6 @@ module gray_scale_core(
 logic [PIXEL_WIDTH_OUT-1:0] red;
 logic [PIXEL_WIDTH_OUT-1:0] green;
 logic [PIXEL_WIDTH_OUT-1:0] blue;
-logic count;
 
 typedef enum logic [1:0]{
     IDLE,
@@ -63,6 +62,11 @@ always_ff @(posedge clk_i or negedge nreset_i)begin
                 red <= {3'b0, in_px_rgb_i[MAX_PIXEL_BITS-1:10]} <<3;
                 green <= {3'b0, in_px_rgb_i[9:5]} <<3;
                 blue <= {3'b0, in_px_rgb_i[4:0]} <<3;
+            end
+            default: begin
+                red <= 'b0;
+                green <= 'b0;
+                blue <= 'b0;
             end
         endcase
     end
