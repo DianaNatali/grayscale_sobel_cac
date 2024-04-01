@@ -23,3 +23,4 @@ localparam MAX_RESOLUTION_BITS = 24;
     } sobel_matrix;
 
 `endif
+    

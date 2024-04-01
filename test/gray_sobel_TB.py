@@ -1,5 +1,6 @@
 from pathlib import Path
 import numpy as np
+import argparse
 import cocotb
 import cv2
 
@@ -35,9 +36,7 @@ def get_neighbor_array(image, ram_input):
             neighbor_count += 1
     return ram_neighbors
 
-
-
-select = 2
+select = 0
 
 #-------------------------------Convert RGB image to grayscale------------------------------------------
 img_original = cv2.imread('monarch_RGB.jpg', cv2.IMREAD_COLOR) 

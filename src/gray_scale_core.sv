@@ -60,9 +60,9 @@ always_ff @(posedge clk_i or negedge nreset_i)begin
                 blue <= 'b0;
             end
             PROCESSING: begin
-                red <= in_px_rgb_i[MAX_PIXEL_BITS-1:10]<<3;
-                green <= in_px_rgb_i[9:5]<<3;
-                blue <= in_px_rgb_i[4:0]<<3;
+                red <= {3'b0, in_px_rgb_i[MAX_PIXEL_BITS-1:10]} <<3;
+                green <= {3'b0, in_px_rgb_i[9:5]} <<3;
+                blue <= {3'b0, in_px_rgb_i[4:0]} <<3;
             end
         endcase
     end
