@@ -1,4 +1,8 @@
-`include "../src/sobel_control.svh" 
+`ifdef COCOTB_SIM
+  `include "../src/parameters.svh"
+`else
+  `include "parameters.svh"
+`endif
 
 module gray_scale_core(
     input logic    clk_i,
