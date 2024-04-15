@@ -6,10 +6,12 @@ TOPLEVEL_LANG ?= verilog
 COCOTB_HDL_TIMEUNIT = "1ns"
 COCOTB_HDL_TIMEPRECISION = "10ps"
 
+COCOTB_SIM = 1
+
 PWD=$(shell pwd)
 
 VERILOG_SOURCES += $(PWD)/../src/gray_scale_core.sv
-VERILOG_SOURCES += $(PWD)/../src/sobel_control.svh
+VERILOG_SOURCES += $(PWD)/../src/parameters.svh
 VERILOG_SOURCES += $(PWD)/../src/sobel_control.sv
 VERILOG_SOURCES += $(PWD)/../src/sobel_core.sv
 VERILOG_SOURCES += $(PWD)/../src/top_gray_sobel.sv

@@ -1,6 +1,5 @@
 from pathlib import Path
 import numpy as np
-import argparse
 import cocotb
 import cv2
 
@@ -71,7 +70,7 @@ async def wait_file():
     Path('output_image_sobel.txt').exists()
 
 @cocotb.test()
-async def gray_sobel_test_bench(dut):
+async def gray_sobel_TB(dut):
 
     # Clock cycle// 15 bits width 9 pixel RAM 
     clock = Clock(dut.clk_i, 20, units="ns") 
